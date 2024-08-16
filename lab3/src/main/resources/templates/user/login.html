@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col" th:if="${#request.getParameter('error') == 'true'}">
+            <p style="color: red; font-weight: bold">Login fail!!!!</p>
+        </div>
+    </div>
+    <div class="row">
+        <h2 style="text-align: center">Đăng nhập người dùng</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form name="f" th:action="@{/j_spring_security_check}" class="form" method="post">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" class="form-control" value="" placeholder="Nhập tên người dùng" name="username">
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" class="form-control" value="" placeholder="Nhập mật khẩu" name="password">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Đăng nhập" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

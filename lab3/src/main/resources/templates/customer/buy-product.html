@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en" layout:decorate="~{layout/main}">
+<style>
+
+</style>
+<body>
+
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1>List Of Product</h1>
+    </div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">Thong tin khach hang</div>
+            <div class="col" style="font-weight: bold"><p th:utext="${customer.id}" th:data-id="${customer.id}"
+                                                          id="txtCustomer"></p></div>
+            <div class="col" style="font-weight: bold"><p th:utext="${customer.fullName}"></p></div>
+            <div class="col">
+                <button class="btn btn-warning" id="btnCart">Gio hang</button>
+                </p></div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-sm-4 col-md-4 mr-2" th:each="p : ${productList}">
+                <div class="card" style="width: 18rem;">
+                    <img th:src="@{/product/display/{id}(id=${p.getFileId()})}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:utext="${p.name}"></h5>
+                        <h6 class="card-text" th:utext="${p.price}"></h6>
+                        <button class="btn btn-primary btnBuy" th:data-id="${p.id}">Buy</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <script>
+        $(document).ready(function () {
+            var customerId = $("#txtCustomer").data('id');
+            var listProductId = [];
+            console.log("customerId:" + customerId);
+            $('.btnBuy').click(function () {
+                var productId = $(this).data('id');
+                var cartItem = {
+                    productId: productId,
+                    quantity: 1
+                }
+                listProductId.push(cartItem);
+            });
+            $('#btnCart').click(function () {
+                var data = {
+                    customerId: customerId,
+                    cartItemList: listProductId
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/cart/add-cart",
+                    datatype : "application/json",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (a) {
+                        if (a.status) {
+                            alert("Them gio hang thanh cong");
+                        }
+                        window.location='/customer/payment?customerId='+customerId;
+                    }
+                });
+            })
+        });
+    </script>
+</div>
+</body>
+</html>

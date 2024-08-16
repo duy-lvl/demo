@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"  layout:decorate="~{layout/main}">
+<style>
+
+</style>
+<body>
+
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1>List Of Product</h1>
+    </div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <h2>Thong tin khach hang</h2>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col">
+                <h6>Ten khach hang</h6>
+            </div>
+            <div class="col">
+                <h6 th:utext="${customer.fullName}"> </h6>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col">
+                <table class="table table-border">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>PricePrice</th>
+                        <th>So luong</th>
+                        <th>Tong gia</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${paymentItemList}">
+                        <td th:utext="${p.product.id}"></td>
+                        <td th:utext="${p.product.name}"></td>
+                        <td th:utext="${p.product.price}"></td>
+                        <td th:utext="${p.quantity}"></td>
+                        <td th:utext="${p.totalPrices}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn-warning btn">Payment</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"  layout:decorate="~{layout/main}">
+<style>
+
+</style>
+<body>
+
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1>Add new Product</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form th:action="@{/product/save}" th:object="${product}" method="post" class="form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" th:field="*{name}" class="form-control">
+                        <p th:if="${#fields.hasErrors('name')}" th:errorclass="error" th:errors="*{name}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Price:</label>
+                        <input type="text" th:field="*{price}" class="form-control">
+                        <p th:if="${#fields.hasErrors('price')}" th:errorclass="error" th:errors="*{price}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Categories:</label>
+                        <select class="form-control" th:field="*{productCategories}" >
+                            <option th:each="p : ${listProductCategories}" th:value="${p.id}" th:utext="${p.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Create By:</label>
+                        <input type="text" th:field="*{createBy}" class="form-control">
+                        <p th:if="${#fields.hasErrors('createBy')}" th:errorclass="error" th:errors="*{createBy}" />
+                    </div>
+                    <div class="form-group">
+                        <label>Image:</label>
+                        <input type="file" name="image" class="form-control" accept="image/jpeg, image/png">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="en"  layout:decorate="~{layout/main}">
+<style>
+
+</style>
+<body>
+
+<div layout:fragment="content">
+    <div class="jumbotron">
+        <h1>List Of Product</h1>
+    </div>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col">
+                <a th:href="@{/categories/add}" class="btn btn-primary">Add Category</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <table class="table table-border">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Create By</th>
+                        <th>Create At</th>
+                        <th>Control</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="p : ${productCategories}">
+                        <td th:utext="${p.id}"></td>
+                        <td th:utext="${p.name}"></td>
+                        <td th:utext="${p.createBy}"></td>
+                        <td th:utext="${p.createAt}"></td>
+                        <td>
+                            <a th:href="@{/categories/detail/{id}(id=${p.id})}" class="btn btn-primary">Detail</a>
+                            <a th:href="@{/categories/create/{id}(id=${p.id})}" class="btn btn-warning">Update</a>
+                            <a th:href="@{/categories/delete/{id}(id=${p.id})}" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
